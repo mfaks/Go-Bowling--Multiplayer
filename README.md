@@ -5,8 +5,8 @@ game.
 
 **GOALS:**
 
-• Practice good software engineering design principles:
-  o Design your solution before writing the program
+• Practice good software engineering design principles:  
+  o Design your solution before writing the program  
   o Develop test cases before writing the program
 
 • Review conditionals, loops, functions, and array
@@ -40,16 +40,12 @@ game.
 
 **SCORING RULES:**
 
-• The score for a frame is determined by the total number of pins knocked down
-  
-  o A frame without a strike or spare is called an open frame. An open frame score is the total pins knocked down with two rolls in the current frame.
-  
-  o A frame score with a strike is 10 plus the number of pins knocked down with the next two rolls. This can give a player 10-30 points for a frame with a strike.
-  
-  o A frame score with a spare is 10 plus the number of pins knocked down with the next roll. This can give a player 10-20 points for a frame with a spare.
-  
-  o Three consecutive strikes in frame 10 gives 30 points.
-  
+• The score for a frame is determined by the total number of pins knocked down  
+  o A frame without a strike or spare is called an open frame. An open frame score is the total pins knocked down with two rolls in the current frame.  
+  o A frame score with a strike is 10 plus the number of pins knocked down with the next two rolls. This can give a player 10-30 points for a frame with a strike.  
+  o A frame score with a spare is 10 plus the number of pins knocked down with the next roll. This can give a player 10-20 points for a frame with a spare.  
+  o Three consecutive strikes in frame 10 gives 30 points.  
+ 
 • The player’s total score is the sum of all 10 frame scores.
 
 **IMPLEMENTATION REQUIREMENTS:**
@@ -63,16 +59,11 @@ game.
 • You must keep track of the total score for the player and display it after each roll/frame.
 
 • After each roll, you must print the game scoresheet.
-
-  o The game scoresheet consists of frame information and total score for the player.
-
-o The frame information consists of the number of pins knocked down with each roll in each frame and the sum of current and prior frame scores for each frame
-
-o Denote the strike with an X.
-
-o Denote the gutter ball with a dash, -.
-
-o Denote the spare with a forward slash, /.
+  o The game scoresheet consists of frame information and total score for the player.  
+  o The frame information consists of the number of pins knocked down with each roll in each frame and the sum of current and prior frame scores for each frame  
+  o Denote the strike with an X.  
+  o Denote the gutter ball with a dash, -.  
+  o Denote the spare with a forward slash, /.  
 
 • After each frame, you must print the total frame scores and a total score, if they can be calculated at that time.
 
@@ -86,7 +77,7 @@ o Denote the spare with a forward slash, /.
 
 Instead of supporting one single player, modify the program so it can support N players.
 
-Additional requirements:
+**ADDITIONAL REQUIREMENTS:**
 
 • The value of N is determined by a user input during runtime.
 
