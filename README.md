@@ -1,9 +1,9 @@
-PROBLEM STATEMENT:
+**PROBLEM STATEMENT:**
 You have just been tasked with writing the software for your local bowling alley. You must simulate
 bowling with random numbers and make sure your software can keep score for a single player in a
 game.
 
-GOALS:
+**GOALS:**
 
 • Practice good software engineering design principles:
   o Design your solution before writing the program
@@ -16,7 +16,7 @@ GOALS:
 • Use functions to modularize code to increase readability and reduce repeated code
 
 
-BOWLING RULES:
+**BOWLING RULES:**
 
 • The game supports a single player (See Extra Credit for multi-player option).
 
@@ -38,17 +38,21 @@ BOWLING RULES:
 
 • If the strike or spare is received in the 10th frame, then the player is given a 3rd roll/chance in that frame.
 
-SCORING RULES:
+**SCORING RULES:**
 
 • The score for a frame is determined by the total number of pins knocked down
+  
   o A frame without a strike or spare is called an open frame. An open frame score is the total pins knocked down with two rolls in the current frame.
+  
   o A frame score with a strike is 10 plus the number of pins knocked down with the next two rolls. This can give a player 10-30 points for a frame with a strike.
+  
   o A frame score with a spare is 10 plus the number of pins knocked down with the next roll. This can give a player 10-20 points for a frame with a spare.
+  
   o Three consecutive strikes in frame 10 gives 30 points.
   
 • The player’s total score is the sum of all 10 frame scores.
 
-IMPLEMENTATION REQUIREMENTS:
+**IMPLEMENTATION REQUIREMENTS:**
 
 • The number pins knocked down in each roll is determined by a random number.
   o First roll: 0 to 10
@@ -72,3 +76,17 @@ IMPLEMENTATION REQUIREMENTS:
 • The game allows to play again with a different player at the end of a game, until the user decide to quit.
 
 • Your program must handle all errors, such as not entering correct inputs for bowling again.
+
+**EXTRA CREDIT: MULTT-PLAYERS USING DYNAMIC ARRAYS** 
+
+Instead of supporting one single player, modify the program so it can support N players.
+
+Additional requirements:
+
+• The value of N is determined by a user input during runtime.
+
+• The players alternate after each frame.
+
+• Use dynamic arrays allocated on the heap to keep track of the pins knocked down.
+
+• You must not have memory leaks. Make sure you use valgrind! 
