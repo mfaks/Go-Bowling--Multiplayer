@@ -73,7 +73,7 @@ game.
 
 • Your program must handle all errors, such as not entering correct inputs for bowling again.
 
-**EXTRA CREDIT: MULTT-PLAYERS USING DYNAMIC ARRAYS** 
+**MULTI-PLAYERS USING DYNAMIC ARRAYS** 
 
 Instead of supporting one single player, modify the program so it can support N players.
 
