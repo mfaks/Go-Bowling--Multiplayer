@@ -63,11 +63,16 @@ game.
 • You must keep track of the total score for the player and display it after each roll/frame.
 
 • After each roll, you must print the game scoresheet.
+
   o The game scoresheet consists of frame information and total score for the player.
-  o The frame information consists of the number of pins knocked down with each roll in each frame and the sum of current and prior frame scores for each frame
-  o Denote the strike with an X.
-  o Denote the gutter ball with a dash, -.
-  o Denote the spare with a forward slash, /.
+
+o The frame information consists of the number of pins knocked down with each roll in each frame and the sum of current and prior frame scores for each frame
+
+o Denote the strike with an X.
+
+o Denote the gutter ball with a dash, -.
+
+o Denote the spare with a forward slash, /.
 
 • After each frame, you must print the total frame scores and a total score, if they can be calculated at that time.
 
