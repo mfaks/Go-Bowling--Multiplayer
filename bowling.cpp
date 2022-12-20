@@ -14,13 +14,11 @@
 using namespace std; 
 
 /* Function Header
-
 Function: is_int
 Descriptition: Checks the ascii value of the string input to determine if it falls under the category of integers
 Parameters: string playernum
 Preconditions: Accepts the string input for number of players
 Postconditions: Returns whether or not the string was integer
-
 */
 
 bool is_int (string playernum){
