@@ -13,11 +13,11 @@
 using namespace std; 
 
 /*********************************************************************
-** Function:
-** Description:
-** Parameters:
-** Pre-Conditions:
-** Post-Conditions:
+** Function: is_int()
+** Description: Checks if a string input is an integer
+** Parameters: string str
+** Pre-Conditions: Input is a string 
+** Post-Conditions: Returns if the string is an integer
 *********************************************************************/ 
 bool is_int (string playernum){
 
@@ -32,11 +32,11 @@ bool is_int (string playernum){
 }
 
 /*********************************************************************
-** Function:
-** Description:
-** Parameters:
-** Pre-Conditions:
-** Post-Conditions:
+** Function: string_to_int()
+** Description: Converts a string to its integer value 
+** Parameters: string str, int& value
+** Pre-Conditions: Accepts string input 
+** Post-Conditions: Stores it into integer parameter
 *********************************************************************/ 
 void string_to_int(string playernum, int &value){
 	value = 0; 
@@ -52,11 +52,11 @@ void string_to_int(string playernum, int &value){
 }
 
 /*********************************************************************
-** Function:
-** Description:
-** Parameters:
-** Pre-Conditions:
-** Post-Conditions:
+** Function: welcome()
+** Description: Welcomes player(s) by name before they begin to bowl
+** Parameters: string playernum, string username[]
+** Pre-Conditions: Numbers of players has been set with corresponding username(s)
+** Post-Conditions: Welcomes player(s) by name before they begin to bowl 
 *********************************************************************/ 
 void welcome(string playernum, string username[]) {
 	int value = 0;
@@ -69,101 +69,85 @@ void welcome(string playernum, string username[]) {
 }
 
 /*********************************************************************
-** Function:
-** Description:
-** Parameters:
-** Pre-Conditions:
-** Post-Conditions:
+** Function: new_2d_intarray()
+** Description: Creates a new 2d array of integers that will be used to store numerical scores throughout the game
+** Parameters: int length, int width
+** Pre-Conditions: The dimensions of the 2d array of integers have been established
+** Post-Conditions: 2d of array of integers is created and returned
 *********************************************************************/ 
-int** new_2d_intarray(int size1, int size2) {
-	int** new_array = new int* [size1];
-	for (int i = 0; i < size1; i++)
-		new_array[i] = new int[size2];
+int** new_2d_intarray(int length, int width) {
+	int** new_array = new int* [length];
+	for (int i = 0; i < length; i++)
+		new_array[i] = new int[width];
 	return new_array;
 }
 
 /*********************************************************************
-** Function:
-** Description:
-** Parameters:
-** Pre-Conditions:
-** Post-Conditions:
+** Function: new_2d_chararray()
+** Description: Creates a new 2d array of characters that will be used to display scores throughout the game
+** Parameters: int length, int width
+** Pre-Conditions: The dimensions of the 2d array of characters have been established
+** Post-Conditions: 2d of array of characters is created and returned
 *********************************************************************/ 
-char** new_2d_chararray(int size1, int size2) {
-	char** new_array = new char* [size1];
-	for (int i = 0; i < size1; i++) 
-		new_array[i] = new char[size2];
+char** new_2d_chararray(int length, int width) {
+	char** new_array = new char* [length];
+	for (int i = 0; i < length; i++) 
+		new_array[i] = new char[width];
 	return new_array;
 }
 
 /*********************************************************************
-** Function:
-** Description:
-** Parameters:
-** Pre-Conditions:
-** Post-Conditions:
+** Function: fill_2d_intarray()
+** Description: Intializes the values stored in the 2d array of integers to zero 
+** Parameters: int** scorecontents, int length, int width
+** Pre-Conditions: 2d array of integers to store the scores has been created, dimensions have been established
+** Post-Conditions: Returns intilized 2d integer array  
 *********************************************************************/ 
-void fill_2d_intarray(int** scorecontents, int size1, int size2) {
-	for (int i = 0; i < size1; i++) {
-		for (int j = 0; j < size2; j++) {
+void fill_2d_intarray(int** scorecontents, int length, int width) {
+	for (int i = 0; i < length; i++) {
+		for (int j = 0; j < width; j++) {
 			scorecontents[i][j] = 0;
 		}
 	}
 }
 
 /*********************************************************************
-** Function:
-** Description:
-** Parameters:
-** Pre-Conditions:
-** Post-Conditions:
+** Function: fill_2d_chararray()
+** Description: Intializes the values stored in the 2d array of characters to an 'empty' value 
+** Parameters: char** scoreboard, int length, int width
+** Pre-Conditions: 2d array of characters to display the scores has been created, dimensions have been established
+** Post-Conditions: Returns intilized 2d character array  
 *********************************************************************/ 
-void fill_2d_chararray(char** scoreboard, int size1, int size2){
-	for (int i = 0; i < size1; i++) {
-		for (int j = 0; j < size2; j++) {
+void fill_2d_chararray(char** scoreboard, int length, int width){
+	for (int i = 0; i < length; i++) {
+		for (int j = 0; j < width; j++) {
 			scoreboard[i][j] = ' ';
 		}
 	}
 }
 
 /*********************************************************************
-** Function:
-** Description:
-** Parameters:
-** Pre-Conditions:
-** Post-Conditions:
+** Function: roll_error()
+** Description: Handles and reprompts erros if the user enters an invalid input when they bowl their first round 
+** Parameters: string action, int actionvalue
+** Pre-Conditions: User has entered an input to bowl 
+** Post-Conditions: Invalid error message is displayed until user enters a valid input (1)
 *********************************************************************/ 
-void roll1_error (string action1, int action1value){
-	string_to_int(action1, action1value);
-	while((is_int(action1) == false) || action1value != 1){
+void roll_error (string action, int actionvalue){
+	string_to_int(action, actionvalue);
+	while((is_int(action) == false) || actionvalue != 1){
 		cout << "\nInvalid input! Please enter a 1 to bowl: "; 
-		getline(cin, action1);
-		string_to_int(action1, action1value); 
+		getline(cin, action);
+		string_to_int(action, actionvalue); 
 	}
 }
 
 /*********************************************************************
-** Function:
-** Description:
-** Parameters:
-** Pre-Conditions:
-** Post-Conditions:
-*********************************************************************/ 
-void roll2_error (string action2, int action2value) {
-	string_to_int(action2, action2value);
-	while((is_int(action2) == false) || action2value != 1){
-		cout << "\nInvalid input! Please enter a 1 to bowl: ";
-		getline(cin, action2);
-		string_to_int(action2, action2value); 
-	}
-}
-
-/*********************************************************************
-** Function:
-** Description:
-** Parameters:
-** Pre-Conditions:
-** Post-Conditions:
+** Function: gutter_ball()
+** Description: Function outputs a gutter ball message if the player rolls a value of '0'
+** Parameters: int roll
+** Pre-Conditions: Player rolls a gutter ball
+** Post-Conditions: Gutter ball message displayed 
 *********************************************************************/ 
 void gutter_ball (int roll) {
 	if (roll == 0)
@@ -171,10 +155,10 @@ void gutter_ball (int roll) {
 }
 
 /*********************************************************************
-** Function:
-** Description:
-** Parameters:
-** Pre-Conditions:
+** Function: bowl_round_one()
+** Description: Facilitates the first roll of each player
+** Parameters: N/A
+** Pre-Conditions: 
 ** Post-Conditions:
 *********************************************************************/ 
 int bowl_round_one () {
@@ -183,7 +167,7 @@ int bowl_round_one () {
 	int action1value = 0; 
 	cout << "\nEnter a 1 to bowl: ";
 	getline(cin, action1);
-	roll1_error(action1, action1value);	
+	roll_error(action1, action1value);	
 	int roll1 = (rand() % 11); //generates a random number from 0 to 10
 	gutter_ball(roll1);
 	return roll1;
@@ -203,7 +187,7 @@ int bowl_round_two(int roll1) {
 	int roll2 = (rand () % (11 - roll1)); //subtracts a random number from 0 to 10 from the first roll 
 	cout << "\nEnter a 1 to bowl: ";
 	getline(cin, action2);
-	roll2_error(action2, action2value);
+	roll_error(action2, action2value);
 	gutter_ball(roll2);
 	return roll2;
 }
@@ -264,7 +248,6 @@ void strike_or_spare(int player, int** current_frame_total, int** overall_score)
 ** Pre-Conditions:
 ** Post-Conditions:
 *********************************************************************/ 
-
 void scoring (int player, int** current_frame_total, int** overall_score) {
 	int scorecheck[] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
 	int scorecount = 0; 
