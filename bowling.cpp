@@ -62,13 +62,11 @@ void string_to_int(string playernum, int &value){
 }
 
 /* Function Header
-
 Function: welcome
 Descriptition: Welcomes the players to the game before they begin to bowl
 Parameters: string playernum, string username[]
 Preconditions: This function accepts the string for number of players and the 1-D static string array to store the usernames 
 Postconditions: Uses a loop to output a welcome message for all usernames entered
-
 */
 
 void welcome(string playernum, string username[]) {
