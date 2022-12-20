@@ -1,26 +1,24 @@
-/*** Assignment1
-*Program Name: bowling.cpp 
-*Program Author: Muhammad Faks
-*Description: This program simulates a singleplayer and multiplayer version of the popular sport "bowling."
-*Inputs: The number of players, names of each player, action to bowl, and choice to play a new round.
-*Outputs: The current frame, result of each bowl, running total score, prior points earned in each frame, and the choice to play a new round.
-***/
+/******************************************************
+**Program Name: bowling.cpp 
+**Program Author: Muhammad Faks
+**Description: This program simulates a singleplayer and multiplayer version of the popular sport "bowling."
+**Inputs: The number of players, names of each player, action to bowl, and choice to play a new round.
+**Outputs: The current frame, result of each bowl, running total score, prior points earned in each frame, and the choice to play a new round.
+******************************************************/
 
 #include <iostream> 
 #include <string> 
 #include <cstdlib>
 #include <ctime>  
-
 using namespace std; 
 
-/* Function Header
-Function: is_int
-Descriptition: Checks the ascii value of the string input to determine if it falls under the category of integers
-Parameters: string playernum
-Preconditions: Accepts the string input for number of players
-Postconditions: Returns whether or not the string was integer
-*/
-
+/*********************************************************************
+** Function:
+** Description:
+** Parameters:
+** Pre-Conditions:
+** Post-Conditions:
+*********************************************************************/ 
 bool is_int (string playernum){
 
 	for (int n = 0; n < playernum.length(); n++){
@@ -33,124 +31,93 @@ bool is_int (string playernum){
 	return true; 
 }
 
-/* Function Header
-Function: string_to_int
-Descriptition: This function accepts the string input for the number of players in the game and converts it into an integer stores in value
-Parameters: string playernum, int &value
-Preconditions: This function accepts the string of players entered as well as a value to store it as an integer
-Postconditions: Uses pass by reference uptdate the value of desired inputted players as an integer
-*/
-
+/*********************************************************************
+** Function:
+** Description:
+** Parameters:
+** Pre-Conditions:
+** Post-Conditions:
+*********************************************************************/ 
 void string_to_int(string playernum, int &value){
-
 	value = 0; 
-
 	for (int i = 0; i < playernum.length(); i++){
-	
 		if (playernum[i] == '-'){
 			i++;
 		}
-		
 		int val = (int)(playernum[i] - '0'); 
 		value = value * 10 + val; //math to store the value if a positive string into value 
 	}
-	
-	if (playernum[0] == '-'){ 
-		value = value *-1; //storing the negative integer in value if a "-" is detected
-	}
-
+	if (playernum[0] == '-')
+		value = value *-1; //storing the negative integer in value if a "-" is detected	
 }
 
-/* Function Header
-Function: welcome
-Descriptition: Welcomes the players to the game before they begin to bowl
-Parameters: string playernum, string username[]
-Preconditions: This function accepts the string for number of players and the 1-D static string array to store the usernames 
-Postconditions: Uses a loop to output a welcome message for all usernames entered
-*/
-
+/*********************************************************************
+** Function:
+** Description:
+** Parameters:
+** Pre-Conditions:
+** Post-Conditions:
+*********************************************************************/ 
 void welcome(string playernum, string username[]) {
-	
 	int value = 0;
 	string_to_int(playernum, value);
-
 	cout << "\nWelcome to the game: ";
-	for (int i = 0; i < value; i++){ //loops based on the amount of integer value of the number of players
+	for (int i = 0; i < value; i++) //loops based on the amount of integer value of the number of players
 		cout << username[i] << " "; 
-	}
 	cout << "!";	
 	cout << "\n";
 }
 
-/* Function Header
-
-Function: new_2d_intarray
-Descriptition: This function creates a new 2d integer dynamic array to store the frame and overall scores
-Parameters: int size1, int size2
-Preconditions: This function accepts the number of players (size 1) and number of places to be stored (either 21 frames or 10 overall scores)
-Postconditions: Returns the new integer array
-
-*/
-
+/*********************************************************************
+** Function:
+** Description:
+** Parameters:
+** Pre-Conditions:
+** Post-Conditions:
+*********************************************************************/ 
 int** new_2d_intarray(int size1, int size2) {
-
 	int** new_array = new int* [size1];
-	for (int i = 0; i < size1; i++){
+	for (int i = 0; i < size1; i++)
 		new_array[i] = new int[size2];
-	}
-	
 	return new_array;
 }
 
-/* Function Header
-
-Function: new_2d_chararray
-Descriptition: This function creates a 2d char array dynamic array to store the scoreboard totals 
-Parameters: int size1, int size2
-Preconditions: This function accepts the value for the number of players (size 1) and the number of scoreboard frames (21)
-Postconditions: Creates a new 2d char array to display the scoreboard
-
-*/
-
+/*********************************************************************
+** Function:
+** Description:
+** Parameters:
+** Pre-Conditions:
+** Post-Conditions:
+*********************************************************************/ 
 char** new_2d_chararray(int size1, int size2) {
 	char** new_array = new char* [size1];
-	for (int i = 0; i < size1; i++) {
+	for (int i = 0; i < size1; i++) 
 		new_array[i] = new char[size2];
-	}
-	
 	return new_array;
 }
 
-/* Function Header
-
-Function: fill_2d_intarray
-Descriptition: This function sets all the values stored insize the integer array to zero
-Parameters: int** scorecontents, int size1, int size2
-Preconditions: This function takes the dynamic array creates and uses a nested for loop to store all the values at zero 
-Postconditions: Sets all the intitial values in the array to zero 
-
-*/
-
+/*********************************************************************
+** Function:
+** Description:
+** Parameters:
+** Pre-Conditions:
+** Post-Conditions:
+*********************************************************************/ 
 void fill_2d_intarray(int** scorecontents, int size1, int size2) {
-	
 	for (int i = 0; i < size1; i++) {
 		for (int j = 0; j < size2; j++) {
 			scorecontents[i][j] = 0;
 		}
 	}
-
 }
 
-/* Function Header
-
-Function: fill_2d_chararry 
-Descriptition: This function accepts the char array storing the scoreboard values and sets them equal to a blank space
-Parameters: char** scoreboard, int size1, int size2
-Preconditions: This funcition accepts the char arrray to store the scoreboard, number of players, and the numbers of spaces desired to be filled
-Postconditions: The function uses a nested for loop to set all the initial values of the scoreboard equal to a blank space 
-
-*/
-
+/*********************************************************************
+** Function:
+** Description:
+** Parameters:
+** Pre-Conditions:
+** Post-Conditions:
+*********************************************************************/ 
 void fill_2d_chararray(char** scoreboard, int size1, int size2){
 	for (int i = 0; i < size1; i++) {
 		for (int j = 0; j < size2; j++) {
@@ -159,152 +126,111 @@ void fill_2d_chararray(char** scoreboard, int size1, int size2){
 	}
 }
 
-/* Function Header
-
-Function: roll1_error
-Descriptition: This function error handles and reprompts if the user enters an invalid input when they bowl their first round
-Parameters: string action, int action1value
-Preconditions: This function uses string_to_int to convert the action to play into its corresponding value for integer comparisions
-Postconditions: If the roll action was not an integer or not equal to 1, invalid message is presented and the user is remprompted 
-
-*/
-
+/*********************************************************************
+** Function:
+** Description:
+** Parameters:
+** Pre-Conditions:
+** Post-Conditions:
+*********************************************************************/ 
 void roll1_error (string action1, int action1value){
-
 	string_to_int(action1, action1value);
-
 	while((is_int(action1) == false) || action1value != 1){
 		cout << "\nInvalid input! Please enter a 1 to bowl: "; 
 		getline(cin, action1);
 		string_to_int(action1, action1value); 
 	}
-
 }
 
-/* Function Header
-
-Function: roll2_error
-Descriptition: This function error handles and reprompts if the user enters an invalid input when they bowl their first round
-Parameters: string action, int action1value
-Preconditions: This function uses string_to_int to convert the action to play into its corresponding value for integer comparisions
-Postconditions: If the roll action was not an integer or not equal to 1, invalid message is presented and the user is remprompted
-
-*/
-
+/*********************************************************************
+** Function:
+** Description:
+** Parameters:
+** Pre-Conditions:
+** Post-Conditions:
+*********************************************************************/ 
 void roll2_error (string action2, int action2value) {
-
 	string_to_int(action2, action2value);
-
 	while((is_int(action2) == false) || action2value != 1){
 		cout << "\nInvalid input! Please enter a 1 to bowl: ";
 		getline(cin, action2);
 		string_to_int(action2, action2value); 
 	}
-
 }
 
-/* Function Header
-
-Function: gutter_ball
-Descriptition: This function checks if the roll was worth zerp pins and dipslays a gutter ball message if apprioriate 
-Parameters: int roll1
-Preconditions: The frame stored as int roll1
-Postconditions: Outputs a gutter ball message
-
-*/
-
+/*********************************************************************
+** Function:
+** Description:
+** Parameters:
+** Pre-Conditions:
+** Post-Conditions:
+*********************************************************************/ 
 void gutter_ball (int roll) {
-
 	if (roll == 0)
 		cout << "Uh oh! You bowled a gutter ball!" << endl;
 }
 
-/* Function Header
-
-Function: bowl_round_one
-Descriptition: Simulates the action and result to bowl round one 
-Parameters: None
-Preconditions: None 
-Postconditions: Returns the result of the roll as an integer
-
-*/
-
+/*********************************************************************
+** Function:
+** Description:
+** Parameters:
+** Pre-Conditions:
+** Post-Conditions:
+*********************************************************************/ 
 int bowl_round_one () {
-	
-	cin.ignore(); //ignores the first value C++ automatically stores allowing the user to bowl themselves
+	cin.ignore(); 
 	string action1;
 	int action1value = 0; 
-	
 	cout << "\nEnter a 1 to bowl: ";
 	getline(cin, action1);
-	
 	roll1_error(action1, action1value);	
-
 	int roll1 = (rand() % 11); //generates a random number from 0 to 10
 	gutter_ball(roll1);
-
 	return roll1;
 }
 
-/* Function Header
-
-Function: bowl_round_two
-Descriptition: This function simulates the second round of bowling
-Parameters: int roll1
-Preconditions: Uses the result of roll1 to determine the size of the second random number generated and stored into roll2 
-Postconditions: Returns the value of roll2 to be stored in an odd frame 
-
-*/
-
+/*********************************************************************
+** Function:
+** Description:
+** Parameters:
+** Pre-Conditions:
+** Post-Conditions:
+*********************************************************************/ 
 int bowl_round_two(int roll1) {
-
-	cin.ignore(); //ignored the second value C++ automaticall stores allowing the user to bowl themselves
+	cin.ignore(); 
 	string action2;
 	int action2value = 0;
-
 	int roll2 = (rand () % (11 - roll1)); //subtracts a random number from 0 to 10 from the first roll 
-
 	cout << "\nEnter a 1 to bowl: ";
 	getline(cin, action2);
-
 	roll2_error(action2, action2value);
 	gutter_ball(roll2);
-
 	return roll2;
 }
 
-/* Function Header
-
-Function: strike_or_spare
-Descriptition: this function checks if the user bowled a strike or spare and adjusts the score accordingly 
-Parameters: int player, int** current_frame_total, int** overall_score
-Preconditions: This function accepts the integer keeping of track of which player is bowling and loops through each frame to determine the overall score
-Postconditions: The overall score is calculated appropriately 
-
-*/
-
+/*********************************************************************
+** Function:
+** Description:
+** Parameters:
+** Pre-Conditions:
+** Post-Conditions:
+*********************************************************************/ 
 void strike_or_spare(int player, int** current_frame_total, int** overall_score) {
-
 	int strike = 0; //used the count the number of strikes
 	int spare = 0; //used to count the number of spares
 	int sscheck[] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 }; //empty array to store the current frames 
 	int frame = 10;
-
 	for (int i = 0; i < frame; i++) {
-
 		int roll1 = current_frame_total[player][(i*2)];
 		int roll2 = current_frame_total[player][(i*2) + 1];
-
 		if (roll1 == 10) { //loop used to detect a strike with at least 2 frames left
 			sscheck[strike] = (i * 2); //sets the location of the strike on an even bowl 
 			strike++;
 		}
-
 		if (current_frame_total[player][19] == 10) { //loop used to detect a strike with one frame left (treated as a spare)
 			sscheck[strike] = 19; //sets the location of the strike at the 19th bowl
 			strike++;
 		}
-		
 		if (roll1 != 10 && (roll1 + roll2 == 10)) { //loop used to detect a spare 
 			sscheck[spare] = ((i * 2) + 1);
 				spare++; 
@@ -312,101 +238,71 @@ void strike_or_spare(int player, int** current_frame_total, int** overall_score)
 	}
 
 	for (int i = 0; i < strike; i++) { //loop that adds 10 to the two following rolls after the srike and assigns it to the overall score of the prior roll 
-
 		if (sscheck[i] > 17 && sscheck[i] <= 20) { //strike on round 10
-			if (sscheck[i] == 18) { //strike on the first roll of round 10
+			if (sscheck[i] == 18)  //strike on the first roll of round 10
 				overall_score[player][9] = current_frame_total[player][sscheck[i] + 1] + current_frame_total[player][sscheck[i] + 2] + 10; //adds 10 to the following two rolls
-			}
-
-			if (sscheck[i] == 19) { //consecutive strike on the second roll of round 10
+			if (sscheck[i] == 19) //consecutive strike on the second roll of round 10
 				overall_score[player][9] = current_frame_total[player][sscheck[i] + 1] + 10;
-			}
 		}
-
 		else { //strike on rounds 1-9 
-
 			if (current_frame_total[player][sscheck[i] + 1] == 0 && current_frame_total[player][sscheck[i] + 3] == 0) //consectuive strike 
 				overall_score[player][(sscheck[i] / 2)] = current_frame_total[player][sscheck[i] + 2] + current_frame_total[player][sscheck[i] + 4] + 10;
-
 			else if (current_frame_total[player][sscheck[i] + 2] + current_frame_total[player][sscheck[i] + 3] == 10)  //if a spare follows a strike
 				overall_score[player][(sscheck[i] / 2)] = current_frame_total[player][sscheck[i] + 2] + current_frame_total[player][sscheck[i] + 2] + 10;
-
 			else
 				overall_score[player][(sscheck[i] / 2)] = current_frame_total[player][sscheck[i] + 2] + current_frame_total[player][sscheck[i] + 3] + 10;
 		}
 	}
-
-	for (int i = 0; i < spare; i++) { //loop that adds 10 to the following roll after the spare and assigns it to the overall score of the prior roll
+	for (int i = 0; i < spare; i++) //loop that adds 10 to the following roll after the spare and assigns it to the overall score of the prior roll
 		overall_score[player][(((sscheck[i]) - 1) / 2)] = current_frame_total[player][(sscheck[i] + 1)] + 10;
-	}
-
 }
 
-/* Function Header
-
-Function: scoring
-Descriptition: Calculates the score of the total frame 
-Parameters: int player, int** current_frame_total, int** overall_score
-Preconditions: This function adds each players current frames to make their overall score for that frame 
-Postconditions: Stores the value from both frames into the overall score
-
-*/
+/*********************************************************************
+** Function:
+** Description:
+** Parameters:
+** Pre-Conditions:
+** Post-Conditions:
+*********************************************************************/ 
 
 void scoring (int player, int** current_frame_total, int** overall_score) {
-
 	int scorecheck[] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
 	int scorecount = 0; 
 	int frame = 10;
-
 	for (int i = 0; i < frame; i++) {
-
 		int roll1 = current_frame_total[player][i * 2];
 		int roll2 = current_frame_total[player][(i * 2) + 1];
-
 		if ((roll1 + roll2 != 10) && (roll1 != 10)) { //does not count rolls that are strikes or spares since they have alreadey been accounted for in a different function 
 			scorecheck[scorecount] = i * 2;
 			scorecount++;
 		}
 	}
-
-	for (int i = 0; i < scorecount; i++) {
+	for (int i = 0; i < scorecount; i++) 
 		overall_score[player][(scorecheck[i] / 2)] = (current_frame_total[player][scorecheck[i]] + current_frame_total[player][(scorecheck[i]) + 1]); //adds the current and following frame result into the score
-	}
 }
 
-/* Function Header
-
-Function: character_displaye2
-Descriptition: This function is part2 of a function used to display different characters based on the results of the frame
-Parameters: int player, int** current_frame_total, char** scoreboard_total
-Preconditions:  This function checks the value stored in each players frame
-Postconditions: The characters on the scoreboard are displayed accordingly
-
-*/
-
+/*********************************************************************
+** Function:
+** Description:
+** Parameters:
+** Pre-Conditions:
+** Post-Conditions:
+*********************************************************************/ 
 void character_display2(int player, int** current_frame_total, char** scoreboard_total) {
-
 	if (current_frame_total[player][19] == 0) //20th roll gutter
 		scoreboard_total[player][19] = '-';
-
 	if ((current_frame_total[player][18] + current_frame_total[player][19] == 10) && current_frame_total[player][18] != 10) //20th roll spare
 		scoreboard_total[player][19] = '/';
-
 	if (current_frame_total[player][19] == 10) //20th roll strike 
 		scoreboard_total[player][19] = 'X';
-
 	if (current_frame_total[player][20] != 0 && current_frame_total[player][19] + current_frame_total[player][20] != 10 && current_frame_total[player][20] != 10)
 		scoreboard_total[player][20] = char(current_frame_total[player][20] + 48); //odd turn
-
 	if (current_frame_total[player][20] == 0) //21st roll gutter
 		scoreboard_total[player][20] = '-';
-
 	if ((current_frame_total[player][19] + current_frame_total[player][20] == 10) && current_frame_total[player][19] != 10) //21st roll spare
 		scoreboard_total[player][20] = '/';
-
 	if (current_frame_total[player][20] == 10) //21st roll strike 
 		scoreboard_total[player][20] = 'X';
-
 }
 
 /* Function Header
