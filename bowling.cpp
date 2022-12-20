@@ -20,14 +20,12 @@ using namespace std;
 ** Post-Conditions: Returns if the string is an integer
 *********************************************************************/ 
 bool is_int (string playernum){
-
 	for (int n = 0; n < playernum.length(); n++){
 		if (playernum[0] == '-' && playernum.length() > 1)
 			continue;
 		else if (!(playernum[n] >= '0' && playernum[n] <= '9'))  //checks the characters are not from 0 to 9
 			return false; 	
 	}
-
 	return true; 
 }
 
@@ -105,9 +103,8 @@ char** new_2d_chararray(int length, int width) {
 *********************************************************************/ 
 void fill_2d_intarray(int** scorecontents, int length, int width) {
 	for (int i = 0; i < length; i++) {
-		for (int j = 0; j < width; j++) {
+		for (int j = 0; j < width; j++)
 			scorecontents[i][j] = 0;
-		}
 	}
 }
 
@@ -120,9 +117,8 @@ void fill_2d_intarray(int** scorecontents, int length, int width) {
 *********************************************************************/ 
 void fill_2d_chararray(char** scoreboard, int length, int width){
 	for (int i = 0; i < length; i++) {
-		for (int j = 0; j < width; j++) {
+		for (int j = 0; j < width; j++)
 			scoreboard[i][j] = ' ';
-		}
 	}
 }
 
@@ -158,8 +154,8 @@ void gutter_ball (int roll) {
 ** Function: bowl_round_one()
 ** Description: Facilitates the first roll of each player
 ** Parameters: N/A
-** Pre-Conditions: 
-** Post-Conditions:
+** Pre-Conditions: Arrays to store and display scores have been created and intializes 
+** Post-Conditions: Returns the result of the roll as an integer 
 *********************************************************************/ 
 int bowl_round_one () {
 	cin.ignore(); 
@@ -174,11 +170,11 @@ int bowl_round_one () {
 }
 
 /*********************************************************************
-** Function:
-** Description:
-** Parameters:
-** Pre-Conditions:
-** Post-Conditions:
+** Function: bowl_round_two()
+** Description: Facilitates the second roll of each player
+** Parameters: N/A
+** Pre-Conditions: Arrays to store and display scores have been created and intializes 
+** Post-Conditions: Returns the result of the roll as an integer 
 *********************************************************************/ 
 int bowl_round_two(int roll1) {
 	cin.ignore(); 
@@ -193,11 +189,11 @@ int bowl_round_two(int roll1) {
 }
 
 /*********************************************************************
-** Function:
-** Description:
-** Parameters:
-** Pre-Conditions:
-** Post-Conditions:
+** Function: strike_or_spare()
+**Descriptition: Checks each frame for a strike or spare 
+**Parameters: int player, int** current_frame_total, int** overall_score
+**Pre-conditions: Player has rolled for their turn 
+**Post-conditions: Program recognizes where a strike or spare has occured and adjusts the score
 *********************************************************************/ 
 void strike_or_spare(int player, int** current_frame_total, int** overall_score) {
 	int strike = 0; //used the count the number of strikes
@@ -205,8 +201,8 @@ void strike_or_spare(int player, int** current_frame_total, int** overall_score)
 	int sscheck[] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 }; //empty array to store the current frames 
 	int frame = 10;
 	for (int i = 0; i < frame; i++) {
-		int roll1 = current_frame_total[player][(i*2)];
-		int roll2 = current_frame_total[player][(i*2) + 1];
+		int roll1 = current_frame_total[player][(i*2)]; //checks odd frame in a turn (i.e 1, 3, 5) 
+		int roll2 = current_frame_total[player][(i*2) + 1]; //checks even frame a turn (i.e 2, 4, 6)
 		if (roll1 == 10) { //loop used to detect a strike with at least 2 frames left
 			sscheck[strike] = (i * 2); //sets the location of the strike on an even bowl 
 			strike++;
@@ -242,19 +238,19 @@ void strike_or_spare(int player, int** current_frame_total, int** overall_score)
 }
 
 /*********************************************************************
-** Function:
-** Description:
-** Parameters:
-** Pre-Conditions:
-** Post-Conditions:
+** Function: scoring()
+** Description: Program calculates the score of the total frame
+** Parameters: int player, int** current_frame_total, int** overall_score
+** Pre-Conditions: Player has rolled for their turn
+** Post-Conditions: Score is calculated appropriately 
 *********************************************************************/ 
 void scoring (int player, int** current_frame_total, int** overall_score) {
 	int scorecheck[] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
 	int scorecount = 0; 
 	int frame = 10;
 	for (int i = 0; i < frame; i++) {
-		int roll1 = current_frame_total[player][i * 2];
-		int roll2 = current_frame_total[player][(i * 2) + 1];
+		int roll1 = current_frame_total[player][i * 2]; //checks odd frame in a turn (i.e 1, 3, 5) 
+		int roll2 = current_frame_total[player][(i * 2) + 1]; //checks even frame a turn (i.e 2, 4, 6)
 		if ((roll1 + roll2 != 10) && (roll1 != 10)) { //does not count rolls that are strikes or spares since they have alreadey been accounted for in a different function 
 			scorecheck[scorecount] = i * 2;
 			scorecount++;
@@ -265,11 +261,11 @@ void scoring (int player, int** current_frame_total, int** overall_score) {
 }
 
 /*********************************************************************
-** Function:
-** Description:
-** Parameters:
-** Pre-Conditions:
-** Post-Conditions:
+** Function: character_display2()
+** Description: Checks the integer value stored in the 2d array of integers and coverts it to a character to display on the scoreboard
+** Parameters: int player, int** current_frame_total, char** scoreboard_total
+** Pre-Conditions: Player has rolled for the 10th frame (2d array of integers holds the value of their result at each turn)
+** Post-Conditions: Displayers appropriate characters on the scoreboard on the 10th frame
 *********************************************************************/ 
 void character_display2(int player, int** current_frame_total, char** scoreboard_total) {
 	if (current_frame_total[player][19] == 0) //20th roll gutter
