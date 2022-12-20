@@ -34,13 +34,11 @@ bool is_int (string playernum){
 }
 
 /* Function Header
-
 Function: string_to_int
 Descriptition: This function accepts the string input for the number of players in the game and converts it into an integer stores in value
 Parameters: string playernum, int &value
 Preconditions: This function accepts the string of players entered as well as a value to store it as an integer
 Postconditions: Uses pass by reference uptdate the value of desired inputted players as an integer
-
 */
 
 void string_to_int(string playernum, int &value){
