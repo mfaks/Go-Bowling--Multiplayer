@@ -484,124 +484,90 @@ void round_ten(string playernum, int value, int player, string username[], int**
 				}
 			}
 	}
-
 	awards(value, player, frame, current_frame_total, overall_score, scoreboard_total); //awards is called to display the total scores 
-
 }
 
-/* Function Header
-
-Function: delete_and_null_arrays
-Descriptition: This function deletes the contents of each dynamic array created and sets them to null
-Parameters: int value, int** current_frame_total, int** overall_score, char** scoreboard_total 
-Preconditions: A loop is used to delete the contents of each array and set them back to null
-Postconditions: All heap blocks allocated are freed
-
-*/
-
-
+/*********************************************************************
+** Function:
+** Description:
+** Parameters:
+** Pre-Conditions:
+** Post-Conditions:
+*********************************************************************/ 
 void delete_and_null_arrays(int value, int** current_frame_total, int** overall_score, char** scoreboard_total) {
-	
 	for (int i = 0; i < value; i++) { //loops based on the number of players
 		delete[] current_frame_total[i];
 		current_frame_total[i] = NULL;
-
 	}
-
 	delete[] current_frame_total;
 	current_frame_total = NULL;
-
 	for (int i = 0; i < value; i++) { //loops based on the number of players
 		delete[] overall_score[i];
 		overall_score[i] = NULL;
 	}
-
 	delete[] overall_score;
 	overall_score = NULL;
-
 	for (int i = 0; i < value; i++) { //loops based on the number of players
 		delete[] scoreboard_total[i];
 		scoreboard_total[i] = NULL;
 	}
 	delete[] scoreboard_total;
 	scoreboard_total = NULL;
-
 }
 
-/* Function Header
-
-Function: newgame
-Descriptition: This function prompts the user to play a new round
-Parameters: None 
-Preconditions: None 
-Postconditions: The function thanks the user for playing and informs them how they can play a new round 
-
-*/
-
-void newgame() {
-
+/*********************************************************************
+** Function:
+** Description:
+** Parameters:
+** Pre-Conditions:
+** Post-Conditions:
+*********************************************************************/ 
+void newgame(string playagain, int& again) {
 	cout << "\nThank you for playing bowling today! Would you like to play a new round?" << endl;
 	cout << "Enter a 1 to play again or 0 to exit the program:  ";
-
+	getline(cin, playagain);
+	string_to_int(playagain, again);
+	while (is_int(playagain) == false && again != 0 && again != 1) { //error handling invalid input to play a new round
+		cout << "\nInvalid input!" << endl;
+		cout << "Enter a 1 to play again or 0 to exit the program:  ";
+		getline(cin, playagain);
+		string_to_int(playagain, again);
+	}
 }
 
 int main() {
-
-	srand(time(NULL)); //sets the seed once to avoid double seeding
+	srand(time(NULL)); //sets the seed once 
 	string playagain;
 	int again = 0;
-
 	do {
-
 		string playernum;
-		int value = 0;
-		string username[8];
+		int value = 0; //value to store the number of players 
+		string username[8]; //static array of strings to store username 
 		int player = 0;
-
 		cout << "\nWelcome to bowling! Please enter an integer from 1-8 indicating the number of players for today's round: ";
 		getline(cin, playernum);
-
 		string_to_int(playernum, value);
-	
 		while (is_int(playernum) == false || value < 1 || value > 8) {
 			cout << "\nInvalid input! Please enter an integer from 1-8 indicating the number of players you wish to play today: ";
 			getline(cin, playernum);
 			string_to_int(playernum, value);
 		}
-
-		for (int i = 0; i < value; i++) {
+		for (int i = 0; i < value; i++) { //collect the username of each player  
 			cout << "\nPlayer " << i + 1 << ", what is your name?: ";
 			cin >> username[i];
 		}
-
-		int** current_frame_total = new_2d_intarray(value, 21); //initialize and creating a 2d dynamic int array to store the results in each frame
+		int** current_frame_total = new_2d_intarray(value, 21); //creates a 2d dynamic int array to store the results in each frame
 		fill_2d_intarray(current_frame_total, value, 21);
-
-		int** overall_score = new_2d_intarray(value, 10); //intiializing and creating a 2d dynamic int array to store the total scores for each frame
+		int** overall_score = new_2d_intarray(value, 10); //creates a 2d dynamic int array to store the total scores for each frame
 		fill_2d_intarray(overall_score, value, 10);
-
-		char** scoreboard_total = new_2d_chararray(value, 21);
+		char** scoreboard_total = new_2d_chararray(value, 21); //creates a 2d dynamic char array to display the scoreboard 
 		fill_2d_chararray(scoreboard_total, value, 21);
-	
 		welcome(playernum, username); //welcome message
 		go_bowl(playernum, value, player, username, current_frame_total, overall_score, scoreboard_total); //rounds 1-9
 		round_ten(playernum, value, player, username, current_frame_total, overall_score, scoreboard_total); //round 10
 		delete_and_null_arrays(value, current_frame_total, overall_score, scoreboard_total); //contents of each array are deleted and set back to null 
-		newgame(); //prompting for a new round 
-		getline(cin, playagain);
-		string_to_int(playagain, again);
-
-		while (is_int(playagain) == false && again != 0 && again != 1) { //error handling for some invalid inputs to play a new round  
-	
-			cout << "\nInvalid input!" << endl;
-			cout << "Enter a 1 to play again or 0 to exit the program:  ";
-			getline(cin, playagain);
-			string_to_int(playagain, again);
-
-		}
-
-	} while (again == 1 && is_int(playagain) != false);
-
+		newgame(playagain, again); //prompting for a new round 
+	} while (is_int(playagain) == true && again == 1);
 	return 0;
 }
 	 
