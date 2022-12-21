@@ -516,14 +516,13 @@ void delete_and_null_arrays(int value, int** current_frame_total, int** overall_
 }
 
 int new_game(string playagain, int& again){
-
 	cout << "\nThank you for playing bowling today! Would you like to play a new round?" << endl;
 		cout << "Enter a 1 to play again or 0 to exit the program:  ";
-		getline(cin, playagain);
+		cin >> playagain; 
 		string_to_int(playagain, again);
 		while (is_int(playagain) == false && again != 0 && again != 1) { //error handling invalid input to play a new round
 			cout << "\nInvalid input!" << endl;
-			cout << "Enter a 1 to play again or 0 to exit the program:  ";
+			cout << "Enter a '1' to play again or '0' to exit the program:  ";
 			getline(cin, playagain);
 			string_to_int(playagain, again);
 		}
@@ -566,6 +565,7 @@ int main() {
 		round_ten(playernum, value, player, username, current_frame_total, overall_score, scoreboard_total); //round 10
 		delete_and_null_arrays(value, current_frame_total, overall_score, scoreboard_total); //contents of each array are deleted and set back to null 
 		new_game(playagain, again); 
-	} while (is_int(playagain) == true && again == 1);
+
+	} while (again == 1);
 	return 0;
 }
