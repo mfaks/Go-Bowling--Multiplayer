@@ -521,7 +521,7 @@ void new_game(string playagain, int& again){
 	getline(cin, playagain); 
 	string_to_int(playagain, again);
 	
-	while (is_int(playagain) == false || again || 0 && again || 1) { //error handling invalid input to play a new round
+	while (is_int(playagain) == false || again != 0 || again != 1) { //error handling invalid input to play a new round
 		cout << "\nInvalid input!" << endl;
 		cout << "Enter a '1' to play again or '0' to exit the program:  ";
 		getline(cin, playagain);
