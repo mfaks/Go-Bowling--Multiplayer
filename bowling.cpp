@@ -553,7 +553,7 @@ int main() {
 		delete_and_null_arrays(value, current_frame_total, overall_score, scoreboard_total); //contents of each array are deleted and set back to null 
 
 		cout << "\nThank you for playing bowling today! Would you like to play a new round?" << endl;
-		cout << "Enter a '1' to play again or '0' to exit the program: ";
+		cout << "Enter a '1' to play again or either '0' or <enter> to exit the program: ";
 		getline(cin, playagain); 
 		string_to_int(playagain, again); 
 		while (is_int(playagain) == false || again < 0 || again > 1) { //error handling invalid input to play a new round
