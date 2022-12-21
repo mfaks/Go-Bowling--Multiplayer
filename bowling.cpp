@@ -201,8 +201,8 @@ void strike_or_spare(int player, int** current_frame_total, int** overall_score)
 	int sscheck[] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 }; //empty array to store the current frames 
 	int frame = 10;
 	for (int i = 0; i < frame; i++) {
-		int roll1 = current_frame_total[player][(i*2)]; //checks odd frame in a turn (i.e 1, 3, 5) 
-		int roll2 = current_frame_total[player][(i*2) + 1]; //checks even frame a turn (i.e 2, 4, 6)
+		int roll1 = current_frame_total[player][(i*2)]; //checks odd turn in a frame 
+		int roll2 = current_frame_total[player][(i*2) + 1]; //checks even turn a frame 
 		if (roll1 == 10) { //loop used to detect a strike with at least 2 frames left
 			sscheck[strike] = (i * 2); //sets the location of the strike on an even bowl 
 			strike++;
@@ -249,8 +249,8 @@ void scoring (int player, int** current_frame_total, int** overall_score) {
 	int scorecount = 0; 
 	int frame = 10;
 	for (int i = 0; i < frame; i++) {
-		int roll1 = current_frame_total[player][i * 2]; //checks odd frame in a turn (i.e 1, 3, 5) 
-		int roll2 = current_frame_total[player][(i * 2) + 1]; //checks even frame a turn (i.e 2, 4, 6)
+		int roll1 = current_frame_total[player][i * 2]; //checks odd turn in a frame (i.e 1, 3, 5) 
+		int roll2 = current_frame_total[player][(i * 2) + 1]; //checks even turn in a frame (i.e 2, 4, 6)
 		if ((roll1 + roll2 != 10) && (roll1 != 10)) { //does not count rolls that are strikes or spares since they have alreadey been accounted for in a different function 
 			scorecheck[scorecount] = i * 2;
 			scorecount++;
@@ -265,9 +265,13 @@ void scoring (int player, int** current_frame_total, int** overall_score) {
 ** Description: Checks the integer value stored in the 2d array of integers and coverts it to a character to display on the scoreboard
 ** Parameters: int player, int** current_frame_total, char** scoreboard_total
 ** Pre-Conditions: Player has rolled for the 10th frame (2d array of integers holds the value of their result at each turn)
-** Post-Conditions: Displayers appropriate characters on the scoreboard on the 10th frame
+** Post-Conditions: Displays appropriate characters on the scoreboard on the 10th frame
 *********************************************************************/ 
 void character_display2(int player, int** current_frame_total, char** scoreboard_total) {
+	if (current_frame_total[player][18] == 0) //19th roll gutter
+		scoreboard_total[player][18] = '-';
+	if (current_frame_total[player][18] == 10) //19th roll strike
+		scoreboard_total[player][18] = 'X';
 	if (current_frame_total[player][19] == 0) //20th roll gutter
 		scoreboard_total[player][19] = '-';
 	if ((current_frame_total[player][18] + current_frame_total[player][19] == 10) && current_frame_total[player][18] != 10) //20th roll spare
@@ -285,14 +289,14 @@ void character_display2(int player, int** current_frame_total, char** scoreboard
 }
 
 /*********************************************************************
-** Function:
-** Description:
-** Parameters:
-** Pre-Conditions:
-** Post-Conditions:
+** Function: character_display()
+** Description: Checks the integer value stored in the 2d array of integers and coverts it to a character to display on the scoreboard
+** Parameters: int player, int** current_frame_total, char** scoreboard_total
+** Pre-Conditions: The current frame is 1-9, dyamic 2d arrays to store rolls, frame totals, and scoreboard are successfully created and intialized
+** Post-Conditions: Displays the appropraite characters on the scoreboard 
 *********************************************************************/ 
 void character_display(int player, int** current_frame_total, char** scoreboard_total) {
-	for (int i = 0; i < 10; i++) { //loops based on the amount of rounds 
+	for (int i = 0; i < 10; i++) { //loops based on the number of frames 
 		scoreboard_total[player][i * 2] = char(current_frame_total[player][i * 2] + 48); //even turn
 		scoreboard_total[player][(i * 2) + 1] = char(current_frame_total[player][(i * 2) + 1] + 48); //odd turn
 		scoreboard_total[player][(i * 2) + 2] = char(current_frame_total[player][(i * 2) + 2] + 48); //3rd turn on the 10th frame 
@@ -306,20 +310,16 @@ void character_display(int player, int** current_frame_total, char** scoreboard_
 			scoreboard_total[player][(i * 2) + 1] = ' ';
 		if (((current_frame_total[player][i * 2]) + (current_frame_total[player][(i * 2) + 1]) == 10) && current_frame_total[player][i * 2] != 10) //spare
 			scoreboard_total[player][(i * 2) + 1] = '/';
-		if (current_frame_total[player][18] == 0) //19th roll gutter
-			scoreboard_total[player][18] = '-';
-		if (current_frame_total[player][18] == 10) //19th roll strike
-			scoreboard_total[player][18] = 'X';
 		character_display2 (player, current_frame_total, scoreboard_total); //calls the rest of the characters to display 
 	}
 }
 
 /*********************************************************************
-** Function:
-** Description:
-** Parameters:
-** Pre-Conditions:
-** Post-Conditions:
+** Function: frame_format()
+** Description: Formats the frame with proper alignment and spacing
+** Parameters: int player, int frame, char** scoreboard_total
+** Pre-Conditions: Dyanmic 2d character array has been successfully created, intialized, and stores the scores at each frame
+** Post-Conditions: User is easily able to monitor their current scores 
 *********************************************************************/ 
 void frame_format(int player, int frame, char** scoreboard_total) {
 	for (int i = 0; i < frame; i++) {
@@ -337,11 +337,11 @@ void frame_format(int player, int frame, char** scoreboard_total) {
 }
 
 /*********************************************************************
-** Function:
-** Description:
-** Parameters:
-** Pre-Conditions:
-** Post-Conditions:
+** Function: display_total
+** Description: Displays the total score after each roll
+** Parameters: int player, int** overall_score
+** Pre-Conditions: Dynamic 2d array of integers has been successfully created, intialized, and stores the correct values
+** Post-Conditions: Total score is displayed and updated at runtime
 *********************************************************************/ 
 void display_total(int player, int** overall_score) {
 	int scoredisplayed = 0; //stores the score of each frame 
@@ -351,11 +351,11 @@ void display_total(int player, int** overall_score) {
 }
 
 /*********************************************************************
-** Function:
-** Description:
-** Parameters:
-** Pre-Conditions:
-** Post-Conditions:
+** Function: runningscore_display()
+** Description: Displays the running score of each player at each frame 
+** Parameters: int player, int** overall_score
+** Pre-Conditions: Dyanmic 2d integer array has been created successfully 
+** Post-Conditions: Score is displayed appropriately and updated at runtime where players can track their performance
 *********************************************************************/ 
 void runningscore_display (int player, int** overall_score) {
 	int runningscore = 0; //stores the running score of frames
@@ -381,11 +381,11 @@ void runningscore_display (int player, int** overall_score) {
 }
 
 /*********************************************************************
-** Function:
-** Description:
-** Parameters:
-** Pre-Conditions:
-** Post-Conditions:
+** Function: build_scoreboard
+** Description: Outputs the running scoreboard for each player during their turn
+** Parameters: int player, int frame, int** current_frame_total, int** overall_score, char** scoreboard_total
+** Pre-Conditions: Dyanmic 2d character array has been created and intialized successfully
+** Post-Conditions: Dynamic 2d character array prints the character value of the integer rolled for each frame
 *********************************************************************/ 
 void build_scoreboard(int player, int frame, int** current_frame_total, int** overall_score, char** scoreboard_total) {
 	scoring(player, current_frame_total, overall_score);
@@ -402,14 +402,14 @@ void build_scoreboard(int player, int frame, int** current_frame_total, int** ov
 }
 
 /*********************************************************************
-** Function:
-** Description:
-** Parameters:
-** Pre-Conditions:
-** Post-Conditions:
+** Function: awards()
+** Description: Total scores for each player are displayed
+** Parameters: int value, int player, int frame, int** current_frame_total, int** overall_score, char** scoreboard_total
+** Pre-Conditions: Game has finished successfully
+** Post-Conditions: Total scores for each player are displayed
 *********************************************************************/ 
 void awards(int value, int player, int frame, int** current_frame_total, int** overall_score, char** scoreboard_total) {
-	cout << "\n\n***TOTAL SCORES BELOW*** \n\n" << endl;
+	cout << "\n\n***TOTAL SCORES BELOW*** \n" << endl;
 	for (int player = 0; player < value; player++) { //loops based on the value of the string input for number of players
 		scoring(player, current_frame_total, overall_score); //scoring
 		strike_or_spare(player, current_frame_total, overall_score); //strike or spare scoring
@@ -423,11 +423,11 @@ void awards(int value, int player, int frame, int** current_frame_total, int** o
 }
 
 /*********************************************************************
-** Function:
-** Description:
-** Parameters:
-** Pre-Conditions:
-** Post-Conditions:
+** Function: go_bowl()
+** Description: Facilitates frames 1-9 for each player when bowling
+** Parameters: string playernum, int value, int player, string username[], int** current_frame_total, int** overall_score, char** scoreboard_total
+** Pre-Conditions: Dyanmic integer and character arrays have been successfully created and intialized 
+** Post-Conditions: Player(s) bowl their first 9 frames
 *********************************************************************/ 
 void go_bowl (string playernum, int value, int player, string username[], int** current_frame_total, int** overall_score, char** scoreboard_total) {
 	string_to_int(playernum, value);
@@ -449,11 +449,11 @@ void go_bowl (string playernum, int value, int player, string username[], int** 
 }
 
 /*********************************************************************
-** Function:
-** Description:
-** Parameters:
-** Pre-Conditions:
-** Post-Conditions:
+** Function: round_ten()
+** Description: Facilitates frame 10 and accounts for an extra turn if the user rolls a strike or spare 
+** Parameters: string playernum, int value, int player, string username[], int** current_frame_total, int** overall_score, char** scoreboard_total
+** Pre-Conditions: Rounds 1-9 have been successfully completed
+** Post-Conditions: Round 10 is simulated successfully
 *********************************************************************/ 
 void round_ten(string playernum, int value, int player, string username[], int** current_frame_total, int** overall_score, char** scoreboard_total) {
 	string_to_int(playernum, value);
@@ -488,11 +488,11 @@ void round_ten(string playernum, int value, int player, string username[], int**
 }
 
 /*********************************************************************
-** Function:
-** Description:
-** Parameters:
-** Pre-Conditions:
-** Post-Conditions:
+** Function: delete_and_null_arrays
+** Description: Frees the memory allocated to the 2d integer and character dynamic arrays
+** Parameters: int value, int** current_frame_total, int** overall_score, char** scoreboard_total
+** Pre-Conditions: Game finished successfully
+** Post-Conditions: Memory allocated to storing the frame totals and displaying the scoreboard is freed 
 *********************************************************************/ 
 void delete_and_null_arrays(int value, int** current_frame_total, int** overall_score, char** scoreboard_total) {
 	for (int i = 0; i < value; i++) { //loops based on the number of players
@@ -516,11 +516,11 @@ void delete_and_null_arrays(int value, int** current_frame_total, int** overall_
 }
 
 /*********************************************************************
-** Function:
-** Description:
-** Parameters:
-** Pre-Conditions:
-** Post-Conditions:
+** Function: new_game()
+** Description: Prompts the user to play a new round or exit the program (includes error handling)
+** Parameters: string playagain, int& again
+** Pre-Conditions: Game has finished successfully
+** Post-Conditions: User(s) can either play a new game or exit the program
 *********************************************************************/ 
 void new_game(string playagain, int& again){
 	cout << "\nThank you for playing bowling today! Would you like to play a new round?" << endl;
