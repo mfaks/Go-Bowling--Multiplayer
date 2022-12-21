@@ -284,124 +284,83 @@ void character_display2(int player, int** current_frame_total, char** scoreboard
 		scoreboard_total[player][20] = 'X';
 }
 
-/* Function Header
-
-Function: character_display
-Descriptition: This function is used to display different characters based on the results of the frame
-Parameters: int player, int** current_frame_total, char** scoreboard_total
-Preconditions:  This function checks the value stored in each players frame
-Postconditions: The characters on the scoreboard are displayed accordingly
-
-*/
-
+/*********************************************************************
+** Function:
+** Description:
+** Parameters:
+** Pre-Conditions:
+** Post-Conditions:
+*********************************************************************/ 
 void character_display(int player, int** current_frame_total, char** scoreboard_total) {
-
 	for (int i = 0; i < 10; i++) { //loops based on the amount of rounds 
-
 		scoreboard_total[player][i * 2] = char(current_frame_total[player][i * 2] + 48); //even turn
 		scoreboard_total[player][(i * 2) + 1] = char(current_frame_total[player][(i * 2) + 1] + 48); //odd turn
 		scoreboard_total[player][(i * 2) + 2] = char(current_frame_total[player][(i * 2) + 2] + 48); //3rd turn on the 10th frame 
-
 		if (current_frame_total[player][i * 2] == 0) //first roll gutter
 			scoreboard_total[player][i * 2] = '-';
-
 		if (current_frame_total[player][i * 2] == 10) //strike
 			scoreboard_total[player][i * 2] = 'X';
-
 		if (current_frame_total[player][(i * 2) + 1] == 0) //second roll gutter
 			scoreboard_total[player][(i * 2) + 1] = '-';
-
 		if (current_frame_total[player][(i * 2) + 1] == 0 && current_frame_total[player][(i * 2)] == 10) //second roll gutter
 			scoreboard_total[player][(i * 2) + 1] = ' ';
-
 		if (((current_frame_total[player][i * 2]) + (current_frame_total[player][(i * 2) + 1]) == 10) && current_frame_total[player][i * 2] != 10) //spare
 			scoreboard_total[player][(i * 2) + 1] = '/';
-
 		if (current_frame_total[player][18] == 0) //19th roll gutter
 			scoreboard_total[player][18] = '-';
-
 		if (current_frame_total[player][18] == 10) //19th roll strike
 			scoreboard_total[player][18] = 'X';
-		
-		character_display2 (player, current_frame_total, scoreboard_total); //calls the rest of the characters to display  
-
+		character_display2 (player, current_frame_total, scoreboard_total); //calls the rest of the characters to display 
 	}
-
 }
 
-/* Function Header
-
-Function: frame_format
-Descriptition: This function displays the result of each frame on the scoreboard
-Parameters: int player, int frame, char** scoreboard_total
-Preconditions: This function loops based on the number of frames
-Postconditions: Outputs the result of each frame on the scorebord
-
-*/
-
+/*********************************************************************
+** Function:
+** Description:
+** Parameters:
+** Pre-Conditions:
+** Post-Conditions:
+*********************************************************************/ 
 void frame_format(int player, int frame, char** scoreboard_total) {
-	
 	for (int i = 0; i < frame; i++) {
-
 		if (i < 9) //rounds 1-9
 			cout << scoreboard_total[player][i * 2] << " " << scoreboard_total[player][(i * 2) + 1] << " |";
-
 		else //round 10 
 			cout << scoreboard_total[player][i * 2] << " " << scoreboard_total[player][(i * 2) + 1] << " " << scoreboard_total[player][(i * 2) + 2] << " |";
 	}
-
 	for (int i = 0; i < (10 - frame); i++) { //spaces out score dividers accordingly 
-
 		if (i < (10 - (frame + 1)))
 			cout << "    |";
-
 		else
 			cout << "      |   ";
 	}
-
 }
 
-/* Function Header
-
-Function: display_total
-Descriptition: This keeps track of the overall score and displayes it under each frame 
-Parameters: int player, int** overall_score
-Preconditions: This function sums up the values stored in the overall score
-Postconditions: Outputs the score displayed based on the number of characters it consumes
-
-*/
-
+/*********************************************************************
+** Function:
+** Description:
+** Parameters:
+** Pre-Conditions:
+** Post-Conditions:
+*********************************************************************/ 
 void display_total(int player, int** overall_score) {
-
-	int scoredisplayed = 0;
-	
-	for (int i = 0; i < 10; i++) {
-	
+	int scoredisplayed = 0; //stores the score of each frame 
+	for (int i = 0; i < 10; i++) 
 		scoredisplayed += overall_score[player][i]; //sums the display after each frames 
-	
-	}
-
 	cout << " " << scoredisplayed << endl;
 }
 
-/* Function Header
-
-Function: runningscore_display
-Descriptition: This function outputs the runnig scores displayed under their respective frames
-Parameters: int player, int **overall_score
-Preconditions: Based on the player and the overall score a loop is used the calculate their running score under each frame 
-Postconditions: Ouputs the running score for the user under each corresponding grame
-
-*/
-
+/*********************************************************************
+** Function:
+** Description:
+** Parameters:
+** Pre-Conditions:
+** Post-Conditions:
+*********************************************************************/ 
 void runningscore_display (int player, int** overall_score) {
-	
-	int runningscore = 0;
-
+	int runningscore = 0; //stores the running score of frames
 	for (int round = 0; round < 10; round++) {
-
 		runningscore += overall_score[player][round]; //adding scores
-
 		if (round == 9) { //allocating space based on three potential values displayed above on round 10
 			if (runningscore <= 9 && runningscore >= 0)
 				cout << "   " << runningscore << "  |";
@@ -410,9 +369,7 @@ void runningscore_display (int player, int** overall_score) {
 			if (runningscore <= 301 && runningscore >= 100)
 				cout << "  " << runningscore << " |";
 		}
-
 		else { //allocates space for frames 1-9
-
 			if (runningscore <= 9 && runningscore >= 0)
 				cout << " " << runningscore << "  |";
 			if (runningscore <= 99 && runningscore >= 10)
@@ -421,152 +378,106 @@ void runningscore_display (int player, int** overall_score) {
 				cout << " " << runningscore << "|";
 		}
 	}
-
-
 }
 
-/* Function Header
-
-Function: build_scoreboard
-Descriptition: This function is called after each roll is bowled to display a live scoreboard
-Parameters: int player, int frame, int** current_frame_total, int** overall_score, char** scoreboard_total
-Preconditions: This funcion gathers the information collected so far through each players individual and overall scores
-Postconditions: This function calls the other functions listed above to display an accurate live scoreboard after each frame   
-
-*/
-
+/*********************************************************************
+** Function:
+** Description:
+** Parameters:
+** Pre-Conditions:
+** Post-Conditions:
+*********************************************************************/ 
 void build_scoreboard(int player, int frame, int** current_frame_total, int** overall_score, char** scoreboard_total) {
-
 	scoring(player, current_frame_total, overall_score);
 	strike_or_spare(player, current_frame_total, overall_score); //calculates scoring that was a strike or spare
 	character_display(player, current_frame_total, scoreboard_total); //updates the scoreboard with appropriate characters
-	
 	cout << "\nName     | 1  | 2  | 3  | 4  | 5  | 6  | 7  | 8  | 9  |  10  |  Total" << endl;
 	cout << "------------------------------------------------------------------------" << endl;
 	cout << "Player " << player + 1 << " |";
-
 	frame_format(player, frame, scoreboard_total); //formates the results of each round
 	display_total(player, overall_score); //at the end of the scoreborad
-
 	cout << "         |";
 	runningscore_display(player, overall_score); //displays each frame's individual total under it 
-
 	cout << "\n------------------------------------------------------------------------" << endl;
 }
 
-/* Function Header
-
-Function: awards
-Descriptition: This function displays the total scores of each player
-Parameters: int value, int player, int frame, int** current_frame_total, int** overall_score, char** scoreboard_total
-Preconditions: This function calculates the sum of the scores bowled 
-Postconditions: All the scores are displayed for each play 
-
-*/
-
+/*********************************************************************
+** Function:
+** Description:
+** Parameters:
+** Pre-Conditions:
+** Post-Conditions:
+*********************************************************************/ 
 void awards(int value, int player, int frame, int** current_frame_total, int** overall_score, char** scoreboard_total) {
-
 	cout << "\n\n***TOTAL SCORES BELOW*** \n\n" << endl;
-
 	for (int player = 0; player < value; player++) { //loops based on the value of the string input for number of players
-
 		scoring(player, current_frame_total, overall_score); //scoring
 		strike_or_spare(player, current_frame_total, overall_score); //strike or spare scoring
-	
 		cout << "\n\nName     | 1  | 2  | 3  | 4  | 5  | 6  | 7  | 8  | 9  |  10  |  Total" << endl;
 		cout << "------------------------------------------------------------------------" << endl;
 		cout << "Player " << player + 1 << " |";
 		runningscore_display(player, overall_score); //displays score under total
 		display_total(player, overall_score); //displays each frame's score under each frame 
 		cout << "------------------------------------------------------------------------" << endl;
-
 	}
 }
 
-/* Function Header
-
-Function: go_bowl
-Descriptition: This function simulates the bowling game for rounds 1-9 
-Parameters: string playernum, int value, int player, string username[], int** current_frame_total, int**overall_score, char** scoreboard_total
-Preconditions: This function loops through frames 1-9 prompting the user(s) to bowl 
-Postconditions: Live scoreboard is updated after each roll
-
-*/
-
+/*********************************************************************
+** Function:
+** Description:
+** Parameters:
+** Pre-Conditions:
+** Post-Conditions:
+*********************************************************************/ 
 void go_bowl (string playernum, int value, int player, string username[], int** current_frame_total, int** overall_score, char** scoreboard_total) {
-
 	string_to_int(playernum, value);
-
 	for (int frame = 1; frame < 10; frame++){ //frames 1-9
-
 		for (player = 0; player < value; player++) { //loop based on the amount of players
-			
 			cout << "\nNow " << username[player] << " is up to bowl!" << endl;
 			cout << "Frame " << frame << ". . ." << endl;
-
 			current_frame_total[player][(frame - 1) * 2] = bowl_round_one(); //assigns the first roll to the first frame 
 			build_scoreboard(player, frame, current_frame_total, overall_score, scoreboard_total);
-			
-			if (current_frame_total[player][(frame - 1) * 2] == 10) {
+			if (current_frame_total[player][(frame - 1) * 2] == 10) 
 				continue; //skips to the second player if a strike occurs
-			}
-
 			else {
-				
 				int roll2 = bowl_round_two(current_frame_total[player][(frame - 1) * 2]); //if a strike does not occur, the user bowls their second roll of the round 
 				current_frame_total[player][(((frame - 1) * 2) + 1)] = roll2;
 				build_scoreboard(player, frame, current_frame_total, overall_score, scoreboard_total);
 			}
-
 		}
 	}
-
 }
 
-/* Function Header
-
-Function: round_ten
-Descriptition: This function simulates the bowling game for round 10
-Parameters: string playernum, int value, int player, string username[], int** current_frame_total, int**overall_score, char** scoreboard_total
-Preconditions: This function loops each players 10th round and uses conditionals to determine if a 3rd roll needs to be bowled
-Postconditions: Live scoreboard is updated after each roll
-
-*/
-
+/*********************************************************************
+** Function:
+** Description:
+** Parameters:
+** Pre-Conditions:
+** Post-Conditions:
+*********************************************************************/ 
 void round_ten(string playernum, int value, int player, string username[], int** current_frame_total, int** overall_score, char** scoreboard_total) {
-
 	string_to_int(playernum, value);
-
 	int frame = 10; 
 	for (player; player < value; player++) { //loops through for each player 
-
 		cout << "\nNow " << username[player] << " is up to bowl!" << endl;
 		cout << "Frame 10 . . ." << endl;
-
 		current_frame_total[player][(frame - 1) * 2] = bowl_round_one(); //first roll 
 		build_scoreboard(player, frame, current_frame_total, overall_score, scoreboard_total);
-
 			if (current_frame_total[player][18] == 10) { //strike on turn one; third round 
-				
 				current_frame_total[player][19] = bowl_round_one();
 				build_scoreboard(player, frame, current_frame_total, overall_score, scoreboard_total);
-
 				if (current_frame_total[player][19] == 10) { //consecutive strike on turn two; third fresh round
 					current_frame_total[player][20] = bowl_round_one();
 					build_scoreboard(player, frame, current_frame_total, overall_score, scoreboard_total);
 				}
-				
 				else { //non-consecutive strike on turn two  
 					current_frame_total[player][20] = bowl_round_two(current_frame_total[player][19]);
 					build_scoreboard(player, frame, current_frame_total, overall_score, scoreboard_total);
 				}
 			}
-
 			else { //non-strike on turn one.  
-
 				current_frame_total[player][(((frame - 1) * 2) + 1)] = bowl_round_two(current_frame_total[player][(frame - 1) * 2]);;
 				build_scoreboard(player, frame, current_frame_total, overall_score, scoreboard_total);
-
 				if (current_frame_total[player][18] + current_frame_total[player][19] == 10) { //spare on the 2nd turn of the 10th frame; third fresh round 
 					current_frame_total[player][20] = bowl_round_one();
 					build_scoreboard(player, frame, current_frame_total, overall_score, scoreboard_total);
