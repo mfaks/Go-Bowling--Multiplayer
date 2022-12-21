@@ -1,6 +1,6 @@
 /******************************************************
 **Program Name: bowling.cpp 
-**Program Author: Muhammad Faks
+**Program Author: Muhammad Faks 
 **Description: This program simulates a singleplayer and multiplayer version of the popular sport "bowling."
 **Inputs: The number of players, names of each player, action to bowl, and choice to play a new round.
 **Outputs: The current frame, result of each bowl, running total score, prior points earned in each frame, and the choice to play a new round.
