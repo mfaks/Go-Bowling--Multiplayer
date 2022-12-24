@@ -1,4 +1,4 @@
-#Go Bowling (Multiplayer)
+# Go Bowling (Multiplayer)
 
 **PROBLEM STATEMENT:**
 You have just been tasked with writing the software for your local bowling alley. You must simulate
