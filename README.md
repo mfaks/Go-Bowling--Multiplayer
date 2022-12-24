@@ -8,7 +8,9 @@ game.
 **GOALS:**
 
 • Practice good software engineering design principles:  
+
 &nbsp;&nbsp;&nbsp;&nbsp;o Design your solution before writing the program  
+
 &nbsp;&nbsp;&nbsp;&nbsp;o Develop test cases before writing the program
 
 • Review conditionals, loops, functions, and array
