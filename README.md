@@ -1,15 +1,15 @@
 # Go Bowling (Multiplayer)
 
 **PROBLEM STATEMENT:**
-You have just been tasked with writing the software for your local bowling alley. You must simulate
-bowling with random numbers and make sure your software can keep score for a single player in a
+You have just been tasked with writing the software for the local bowling alley. You must simulate
+bowling with random numbers and make sure the software can keep score for a single player in a
 game.
 
 **GOALS:**
 
 • Practice good software engineering design principles:  
 
-&nbsp;&nbsp;&nbsp;&nbsp;o Design your solution before writing the program  
+&nbsp;&nbsp;&nbsp;&nbsp;o Design the solution before writing the program  
 
 &nbsp;&nbsp;&nbsp;&nbsp;o Develop test cases before writing the program
 
