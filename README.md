@@ -1,28 +1,13 @@
 # Go Bowling (Multiplayer)
 
 **PROBLEM STATEMENT:**
-You have just been tasked with writing the software for the local bowling alley. You must simulate
+Write the software for the local bowling alley. You must simulate
 bowling with random numbers and make sure the software can keep score for a single player in a
 game.
 
-**GOALS:**
-
-• Practice good software engineering design principles:  
-
-&nbsp;&nbsp;&nbsp;&nbsp;o Design the solution before writing the program  
-
-&nbsp;&nbsp;&nbsp;&nbsp;o Develop test cases before writing the program
-
-• Review conditionals, loops, functions, and array
-
-• Practice dynamic memory usage with pointers
-
-• Use functions to modularize code to increase readability and reduce repeated code
-
-
 **BOWLING RULES:**
 
-• The game supports a single player (See Extra Credit for multi-player option).
+• The game supports a single or multi-player.
 
 • The game should prompt for user’s name and send a greeting message at the beginning of the game.
 
@@ -58,24 +43,24 @@ game.
 &nbsp;&nbsp;&nbsp;&nbsp;o First roll: 0 to 10
 &nbsp;&nbsp;&nbsp;&nbsp;o Second roll: 0 to (10 – first roll)
 
-• You must use an array to represent pins knocked down with each roll for each frame, and display this information after each roll.
+• Use array to represent pins knocked down with each roll for each frame, and display this information after each roll.
 
-• You must keep track of the total score for the player and display it after each roll/frame.
+• Keep track of the total score for the player and display it after each roll/frame.
 
-• After each roll, you must print the game scoresheet:  
+• After each roll, print the game scoresheet:  
 &nbsp;&nbsp;&nbsp;&nbsp;o The game scoresheet consists of frame information and total score for the player.  
 &nbsp;&nbsp;&nbsp;&nbsp;o The frame information consists of the number of pins knocked down with each roll in each frame and the sum of current and prior frame scores for each frame  
 &nbsp;&nbsp;&nbsp;&nbsp;o Denote the strike with an X.  
 &nbsp;&nbsp;&nbsp;&nbsp;o Denote the gutter ball with a dash, -.  
 &nbsp;&nbsp;&nbsp;&nbsp;o Denote the spare with a forward slash, /.  
 
-• After each frame, you must print the total frame scores and a total score, if they can be calculated at that time.
+• After each frame, print the total frame scores and a total score, if they can be calculated at that time.
 
 • The game must print the total score of the player at the end of a game
 
 • The game allows to play again with a different player at the end of a game, until the user decide to quit.
 
-• Your program must handle all errors, such as not entering correct inputs for bowling again.
+• The program must handle all errors, such as not entering correct inputs for bowling again.
 
 **MULTI-PLAYERS USING DYNAMIC ARRAYS** 
 
