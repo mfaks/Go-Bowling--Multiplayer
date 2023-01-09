@@ -1,15 +1,9 @@
 # Go Bowling (Multiplayer)
 
 **PROBLEM STATEMENT:**
-Write the software for the local bowling alley. You must simulate
-bowling with random numbers and make sure the software can keep score for a single player in a
-game.
+Write the software for the local bowling alley that simulates a traditional bowling game following traditional bowling rules.  
 
 **BOWLING RULES:**
-
-• The game supports a single or multi-player.
-
-• The game should prompt for user’s name and send a greeting message at the beginning of the game.
 
 • There are 10 total frames in a game.
 
@@ -19,7 +13,7 @@ game.
 
 • With the second roll, the player can knock down 0 pins up to the number of pins remaining from the first roll.
 
-• If the player knocks down all 10 pins in their first roll of a frame, then that is called a strike(X), and the player doesn’t get a second roll/chance to knock down any remaining pins in that frame.
+• 10 pins in their first roll of a frame, then that is called a strike(X), and the player doesn’t get a second roll/chance to knock down any remaining pins in that frame.
 
 • If the player knocks down all 10 pins in a frame using two rolls, then it is called a spare (/).
 
@@ -39,8 +33,8 @@ game.
 
 **IMPLEMENTATION REQUIREMENTS:**
 
-• The number pins knocked down in each roll is determined by a random number:
-&nbsp;&nbsp;&nbsp;&nbsp;o First roll: 0 to 10
+• The number pins knocked down in each roll is determined by a random number:  
+&nbsp;&nbsp;&nbsp;&nbsp;o First roll: 0 to 10  
 &nbsp;&nbsp;&nbsp;&nbsp;o Second roll: 0 to (10 – first roll)
 
 • Use array to represent pins knocked down with each roll for each frame, and display this information after each roll.
@@ -62,16 +56,8 @@ game.
 
 • The program must handle all errors, such as not entering correct inputs for bowling again.
 
-**MULTI-PLAYERS USING DYNAMIC ARRAYS** 
-
-Instead of supporting one single player, modify the program so it can support N players.
-
-**ADDITIONAL REQUIREMENTS:**
-
-• The value of N is determined by a user input during runtime.
-
 • The players alternate after each frame.
 
-• Use dynamic arrays allocated on the heap to keep track of the pins knocked down.
+• Use dynamic arrays allocated on the heap to keep track of the pins knocked down by each player.
 
-• You must not have memory leaks. Make sure you use valgrind! 
+• Use valgrind to prevent memory leaks.
